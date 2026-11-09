@@ -1,0 +1,9 @@
+# 공개 저장소: 라이브러리 실행에 필요한 파일만 올린다. 나머지(docs, demo, test.js, data 등)는 이 PC에만 둔다
+*
+!.gitignore
+!README.md
+!package.json
+!package-lock.json
+!index.js
+!public/
+!public/chat.js

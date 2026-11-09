@@ -1,0 +1,23 @@
+{
+  "name": "chat",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Node 서버에 붙이는 실시간 채팅 (attachChat + script 한 줄 위젯)",
+  "scripts": {
+    "demo": "node demo/server.js",
+    "test": "node test.js"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "dependencies": {
+    "nickgen": "github:HalroWorld/nickgen",
+    "ws": "^8.22.1"
+  },
+  "main": "index.js",
+  "exports": "./index.js",
+  "files": [
+    "index.js",
+    "public/chat.js"
+  ]
+}
