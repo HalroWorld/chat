@@ -33,6 +33,7 @@ const publicId = (uid) => createHash('sha256').update(uid).digest('base64url').s
  * @param {string} [opts.dbFile='data/chat.db']  실행 위치 기준
  * @param {string} [opts.path='/chat']  위젯은 {path}/chat.js, WebSocket은 {path}/ws
  * @param {string[]} [opts.origins]  허용할 Origin. 없으면 같은 호스트만
+ * @param {number} [opts.history=50]  들어올 때 보여 줄 지난 메시지 수(0~50). 0이면 들어온 뒤의 메시지만
  */
 export function attachChat(server, {
   getUser = () => null,
@@ -40,7 +41,9 @@ export function attachChat(server, {
   dbFile = 'data/chat.db',
   path = '/chat',
   origins,
+  history = HISTORY,
 } = {}) {
+  const showPast = Math.max(0, Math.min(HISTORY, Math.floor(Number(history) || 0)));
   // ── DB: 방마다 최근 50개만 ──
   if (dbFile !== ':memory:') {
     dbFile = resolve(dbFile);
@@ -98,7 +101,7 @@ export function attachChat(server, {
     send(ws, {
       t: 'hello',
       me: me && { pid: me.pid, name: me.name, anon: uid.startsWith('a:') },
-      history: recentMsgs.all(room, HISTORY).reverse(),
+      history: showPast ? recentMsgs.all(room, showPast).reverse() : null, // null: 지난 메시지 안 보냄(다시 붙어도 화면에 있던 건 그대로)
       people: peopleOf(room),
     });
     if (first) broadcast(room, { t: 'people', people: peopleOf(room), event: { kind: 'join', name: me.name } }, ws);

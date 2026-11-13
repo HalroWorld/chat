@@ -294,9 +294,11 @@ input:disabled{background:#F2F4F6;color:#6B7684}
       if (m.t === 'hello') {
         setMe(m.me);
         refreshSend();
-        list.replaceChildren();
-        lastDay = last = null;
-        m.history.forEach((x) => addMsg(x, true));
+        if (m.history) { // 서버가 지난 메시지를 안 보내면(null) 지금 보이는 대화를 그대로 둔다
+          list.replaceChildren();
+          lastDay = last = null;
+          m.history.forEach((x) => addMsg(x, true));
+        }
         people = m.people;
         renderPeople();
         list.scrollTop = list.scrollHeight;

@@ -38,6 +38,7 @@ if (chat.handle(req, res)) return;          // 일반 http 핸들러 맨 앞
 | `dbFile` | `data/chat.db` | 실행 위치 기준 |
 | `path` | `/chat` | 위젯 `{path}/chat.js`, WebSocket `{path}/ws` |
 | `origins` | 같은 호스트만 | 허용할 Origin 목록. 다른 도메인 화면에서 붙일 때만 |
+| `history` | `50` | 들어올 때 보여 줄 지난 메시지 수(0~50). `0`이면 들어온 뒤의 메시지만 보이고, 다시 연결돼도 보던 대화는 그대로 |
 
 ## 화면에 붙이기
 
